@@ -23,7 +23,7 @@ function LoginPage() {
 
   		{/* insert code here to create input elements for the variables email and  password */}
         <div className="mb-3">
-            <label htmlfor="email" className="form-label">Email</label>
+            <label htmlFor="email" className="form-label">Email</label>
             
             <input
                 id="email"
@@ -36,14 +36,14 @@ function LoginPage() {
         </div>
 
         <div className="mb-3">
-        <label htmlfor="password" className="form-label">Password</label>
+        <label htmlFor="password" className="form-label">Password</label>
             
             <input
                 id="password"
-                type="text"
+                type="password"
                 className="form-control"
                 placeholder="Enter your Password"
-                value={{password}}
+                value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 />
         </div>

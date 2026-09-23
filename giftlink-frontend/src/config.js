@@ -1,6 +1,6 @@
 const config = {
-  backendUrl: process.env.REACT_APP_BACKEND_URL,
+  // Keep API requests on the page's origin so they also work through ngrok.
+  backendUrl: (process.env.REACT_APP_BACKEND_URL || '').replace(/\/+$/, ''),
 };
 
-console.log(`backendUrl in config.js: ${config.backendUrl}`)
-export {config as urlConfig}
+export { config as urlConfig };

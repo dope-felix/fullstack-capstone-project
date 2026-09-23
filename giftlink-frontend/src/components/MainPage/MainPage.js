@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {urlConfig} from '../../config';
+import GiftImage from '../GiftImage';
 
 function MainPage() {
     const [gifts, setGifts] = useState([]);
@@ -44,9 +45,17 @@ function MainPage() {
     };
 
     return (
-        <div className="container mt-5">
+        <main className="container mt-4">
+            <div className="product-grid-header">
+                <div>
+                    <p className="eyebrow">GIFT DISCOVERY</p>
+                    <h1 className="page-title">Find something useful.</h1>
+                    <p className="page-subtitle">Browse practical gifts shared by the GiftLink community.</p>
+                </div>
+                <span className="inventory-count">{gifts.length} items available</span>
+            </div>
             <div className="row">
-                {gifts.map((gift) => (
+                {gifts.map((gift, index) => (
                     <div key={gift.id} className="col-md-4 mb-4">
                         <div className="card product-card">
 
@@ -54,7 +63,13 @@ function MainPage() {
                                                         
                             <div className="image-placeholder">
                                 {gift.image ? (
-                                    <img src={gift.image} alt={gift.name} className="card-img-top" />
+                                    <GiftImage
+                                        src={gift.image}
+                                        alt={gift.name}
+                                        className="card-img-top"
+                                        sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1199px) 33vw, 360px"
+                                        loading={index < 3 ? 'eager' : 'lazy'}
+                                    />
                                 ) : (
                                     <div className="no-image-available">No Image Available</div>
                                 )}
@@ -82,7 +97,7 @@ function MainPage() {
                     </div>
                 ))}
             </div>
-        </div>
+        </main>
     );
 }
 

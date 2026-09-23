@@ -1,0 +1,82 @@
+{
+  "/images/bed-frame.jpeg": {
+    "width": 5472,
+    "height": 3072,
+    "srcSet": "/images/optimized/bed-frame.jpeg-480.webp 480w, /images/optimized/bed-frame.jpeg-960.webp 960w, /images/optimized/bed-frame.jpeg-1440.webp 1440w"
+  },
+  "/images/bookshelf1.jpeg": {
+    "width": 455,
+    "height": 500,
+    "srcSet": "/images/optimized/bookshelf1.jpeg-455.webp 455w"
+  },
+  "/images/bookshelf2.jpeg": {
+    "width": 6581,
+    "height": 4480,
+    "srcSet": "/images/optimized/bookshelf2.jpeg-480.webp 480w, /images/optimized/bookshelf2.jpeg-960.webp 960w, /images/optimized/bookshelf2.jpeg-1440.webp 1440w"
+  },
+  "/images/bookshelf3.jpeg": {
+    "width": 3840,
+    "height": 2160,
+    "srcSet": "/images/optimized/bookshelf3.jpeg-480.webp 480w, /images/optimized/bookshelf3.jpeg-960.webp 960w, /images/optimized/bookshelf3.jpeg-1440.webp 1440w"
+  },
+  "/images/coffee-table.jpeg": {
+    "width": 640,
+    "height": 361,
+    "srcSet": "/images/optimized/coffee-table.jpeg-480.webp 480w, /images/optimized/coffee-table.jpeg-640.webp 640w"
+  },
+  "/images/couch2.jpeg": {
+    "width": 5734,
+    "height": 1912,
+    "srcSet": "/images/optimized/couch2.jpeg-480.webp 480w, /images/optimized/couch2.jpeg-960.webp 960w, /images/optimized/couch2.jpeg-1440.webp 1440w"
+  },
+  "/images/curtains1.jpeg": {
+    "width": 5760,
+    "height": 3840,
+    "srcSet": "/images/optimized/curtains1.jpeg-480.webp 480w, /images/optimized/curtains1.jpeg-960.webp 960w, /images/optimized/curtains1.jpeg-1440.webp 1440w"
+  },
+  "/images/curtains2.jpeg": {
+    "width": 4800,
+    "height": 1800,
+    "srcSet": "/images/optimized/curtains2.jpeg-480.webp 480w, /images/optimized/curtains2.jpeg-960.webp 960w, /images/optimized/curtains2.jpeg-1440.webp 1440w"
+  },
+  "/images/desk-chair.jpeg": {
+    "width": 6720,
+    "height": 4480,
+    "srcSet": "/images/optimized/desk-chair.jpeg-480.webp 480w, /images/optimized/desk-chair.jpeg-960.webp 960w, /images/optimized/desk-chair.jpeg-1440.webp 1440w"
+  },
+  "/images/dining-table.jpeg": {
+    "width": 5745,
+    "height": 1915,
+    "srcSet": "/images/optimized/dining-table.jpeg-480.webp 480w, /images/optimized/dining-table.jpeg-960.webp 960w, /images/optimized/dining-table.jpeg-1440.webp 1440w"
+  },
+  "/images/filing-cabinet.jpeg": {
+    "width": 4500,
+    "height": 4500,
+    "srcSet": "/images/optimized/filing-cabinet.jpeg-480.webp 480w, /images/optimized/filing-cabinet.jpeg-960.webp 960w, /images/optimized/filing-cabinet.jpeg-1440.webp 1440w"
+  },
+  "/images/lamp.jpeg": {
+    "width": 6914,
+    "height": 5890,
+    "srcSet": "/images/optimized/lamp.jpeg-480.webp 480w, /images/optimized/lamp.jpeg-960.webp 960w, /images/optimized/lamp.jpeg-1440.webp 1440w"
+  },
+  "/images/laptop-stand.jpeg": {
+    "width": 3264,
+    "height": 3072,
+    "srcSet": "/images/optimized/laptop-stand.jpeg-480.webp 480w, /images/optimized/laptop-stand.jpeg-960.webp 960w, /images/optimized/laptop-stand.jpeg-1440.webp 1440w"
+  },
+  "/images/office-desk.jpeg": {
+    "width": 5760,
+    "height": 3840,
+    "srcSet": "/images/optimized/office-desk.jpeg-480.webp 480w, /images/optimized/office-desk.jpeg-960.webp 960w, /images/optimized/office-desk.jpeg-1440.webp 1440w"
+  },
+  "/images/side-table.jpeg": {
+    "width": 6464,
+    "height": 4309,
+    "srcSet": "/images/optimized/side-table.jpeg-480.webp 480w, /images/optimized/side-table.jpeg-960.webp 960w, /images/optimized/side-table.jpeg-1440.webp 1440w"
+  },
+  "/images/tv-stand.jpeg": {
+    "width": 4200,
+    "height": 2363,
+    "srcSet": "/images/optimized/tv-stand.jpeg-480.webp 480w, /images/optimized/tv-stand.jpeg-960.webp 960w, /images/optimized/tv-stand.jpeg-1440.webp 1440w"
+  }
+}

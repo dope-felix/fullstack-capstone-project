@@ -2,60 +2,65 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const pinoLogger = require('./logger');
-const authRoutes = require('./routes/authRoutes');
-
-const connectToDatabase = require('./models/db');
-const {loadData} = require("./util/import-mongo/index");
-
-
-const app = express();
-app.use("*",cors());
-const port = 3060;
-
-// Connect to MongoDB; we just do this one time
-connectToDatabase().then(() => {
-    pinoLogger.info('Connected to DB');
-})
-    .catch((e) => console.error('Failed to connect to DB', e));
-
-
-app.use(express.json());
-
-// Route files
-// Gift API Task 1: import the giftRoutes and store in a constant called giftroutes
-const giftRoutes = require('./routes/giftRoutes');
-
-// Search API Task 1: import the searchRoutes and store in a constant called searchRoutes
-const searchRoutes = require('./routes/searchRoutes');
-
-
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const pinoHttp = require('pino-http');
 const logger = require('./logger');
+const connectToDatabase = require('./models/db');
 
+const authRoutes = require('./routes/authRoutes');
+const giftRoutes = require('./routes/giftRoutes');
+const searchRoutes = require('./routes/searchRoutes');
+
+const app = express();
+const port = process.env.PORT || 3060;
+
+// Trust the local frontend/ngrok proxies so rate limits use the visitor's IP.
+app.set('trust proxy', 'loopback');
+app.disable('x-powered-by');
+app.use(helmet());
+app.use(rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 200,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { success: false, message: 'Too many requests, please try again later.' },
+}));
+
+app.use(cors({
+    origin: process.env.FRONTEND_URL || true,
+    credentials: true,
+}));
+
+app.use(express.json());
 app.use(pinoHttp({ logger }));
 
-// Use Routes
-// Gift API Task 2: add the giftRoutes to the server by using the app.use() method.
+connectToDatabase().then(() => {
+    logger.info('Connected to DB');
+}).catch((e) => {
+    logger.error({ err: e }, 'Failed to connect to DB');
+});
+
+app.get('/', (req, res) => {
+    res.json({ message: 'Inside the server' });
+});
+
 app.use('/api/gifts', giftRoutes);
-
-// Search API Task 2: add the searchRoutes to the server by using the app.use() method.
 app.use('/api/search', searchRoutes);
-
-// add authRoutes to the server by using the app.use() method.
 app.use('/api/auth', authRoutes);
 
-
-// Global Error Handler
 app.use((err, req, res, next) => {
-    console.error(err);
-    res.status(500).send('Internal Server Error');
+    logger.error({ err, url: req.originalUrl, method: req.method }, 'Unhandled API error');
+    res.status(err.statusCode || 500).json({
+        success: false,
+        message: err.message || 'Internal Server Error',
+    });
 });
 
-app.get("/",(req,res)=>{
-    res.send("Inside the server");
-});
+if (require.main === module) {
+    app.listen(port, () => {
+        logger.info(`Server running on port ${port}`);
+    });
+}
 
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-});
+module.exports = app;

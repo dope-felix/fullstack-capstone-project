@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './DetailsPage.css';
 import {urlConfig} from '../../config';
+import GiftImage from '../GiftImage';
 
 function DetailsPage() {
     const navigate = useNavigate();
@@ -86,7 +87,13 @@ function DetailsPage() {
                     <div className="image-placeholder-large">
                         {gift.image ? (
                             // Task 5: Display gift image
-                            <img src={gift.image} alt={gift.name} className="product-image-large" />
+                            <GiftImage
+                                src={gift.image}
+                                alt={gift.name}
+                                className="product-image-large"
+                                sizes="(max-width: 1199px) calc(100vw - 80px), 1100px"
+                                loading="eager"
+                            />
                         ) : (
                             <div className="no-image-available-large">No Image Available</div>
                         )}

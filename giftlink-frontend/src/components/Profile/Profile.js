@@ -63,41 +63,35 @@ const handleSubmit = async (e) => {
       return;
     }
 
-    const payload = { ...updatedDetails };
+    const payload = { name: updatedDetails.name };
     const response = await fetch(`${urlConfig.backendUrl}/api/auth/update`, {
       method: 'PUT',
-
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${authtoken}`
+        'Authorization': `Bearer ${authtoken}`,
+        'email': email,
       },
-
       body: JSON.stringify(payload)
     });
 
     if (response.ok) {
-      // Update the user details in session storage
       sessionStorage.setItem('name', updatedDetails.name);
-
       setUserName(updatedDetails.name);
-
-      setUserDetails(updatedDetails);
+      setUserDetails({ ...userDetails, name: updatedDetails.name });
       setEditMode(false);
 
-      // Display success message to the user
-      setChanged("Name Changed Successfully!");
+      setChanged('Name Changed Successfully!');
       setTimeout(() => {
-        setChanged("");
-        navigate("/");
+        setChanged('');
+        navigate('/app');
       }, 1000);
-
     } else {
-      // Handle error case
-      throw new Error("Failed to update profile");
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to update profile');
     }
   } catch (error) {
     console.error(error);
-    // Handle error case
+    setChanged(error.message || 'Could not update profile.');
   }
 };
 

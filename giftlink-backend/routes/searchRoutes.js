@@ -3,34 +3,43 @@ const express = require('express');
 const router = express.Router();
 const connectToDatabase = require('../models/db');
 
-// Search for gifts
+// Build a safe MongoDB query from the incoming search params.
+// This keeps the route logic readable and makes it easy to test.
+const buildSearchQuery = (queryParams = {}) => {
+    const query = {};
+
+    const name = queryParams.name ? String(queryParams.name).trim() : '';
+    if (name) {
+        query.name = { $regex: name, $options: 'i' };
+    }
+
+    const category = queryParams.category ? String(queryParams.category).trim() : '';
+    if (category) {
+        query.category = category;
+    }
+
+    const condition = queryParams.condition ? String(queryParams.condition).trim() : '';
+    if (condition) {
+        query.condition = condition;
+    }
+
+    const ageYears = queryParams.age_years;
+    if (ageYears !== undefined && ageYears !== null && ageYears !== '') {
+        const parsedAge = Number.parseInt(ageYears, 10);
+        if (!Number.isNaN(parsedAge)) {
+            query.age_years = { $lte: parsedAge };
+        }
+    }
+
+    return query;
+};
+
+// Search for gifts.
 router.get('/', async (req, res, next) => {
     try {
-        // Task 1: Connect to MongoDB using connectToDatabase database. Remember to use the await keyword and store the connection in `db`
         const db = await connectToDatabase();
-
-        const collection = db.collection("gifts");
-
-        // Initialize the query object
-        let query = {};
-
-        // Add the name filter to the query if the name parameter is not empty
-        if (req.query.name && req.query.name.trim() !== '') {
-            query.name = { $regrex: req.query.name, $option: "i"}; // Using regex for partial match, case-insensitive
-        }
-       
-        // Task 3: Add other filters to the query
-        if (req.query.category) {
-            query.catergory = req.query.category;
-        }
-        if (req.query.condition) {
-            query.condition = req.query.condition; 
-        }
-        if (req.query.age_years) {
-            query.age_years = { $lte: parseInt(req.query.age_years) };
-        }
-
-        // Task 4: Fetch filtered gifts using the find(query) method. Make sure to use await and store the result in the `gifts` constant
+        const collection = db.collection('gifts');
+        const query = buildSearchQuery(req.query);
         const gifts = await collection.find(query).toArray();
 
         res.json(gifts);
@@ -40,3 +49,4 @@ router.get('/', async (req, res, next) => {
 });
 
 module.exports = router;
+module.exports.buildSearchQuery = buildSearchQuery;
